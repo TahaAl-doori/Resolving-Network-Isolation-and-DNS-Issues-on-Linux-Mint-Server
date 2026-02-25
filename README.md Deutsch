@@ -1,0 +1,20 @@
+Vorfallübersicht:
+Der primäre Server (Server-1) erlebte insgesamt
+Netzwerkisolierung aufgrund falsch konfigurierter statischer IP.
+Diese Blockade verhinderte die Installation des (Cockpit-PCP)-Metrikpakets und stoppte alle Aktualisierungen des Systemrepositorys.
+
+2.Diagnostische Befunde
+Routing-Problem: Dem Server fehlte eine gültige Route zum externen Gateaway.
+DNS-Konflikt: Systemaufgelöste Konflikte verhinderten eine konsistente Namensauflösung,was zu
+Fehler „Konnte nicht behoben werden“ bei Upate-Versuchen.
+
+3.Sanierungsstrategie
+Dynamische Adressierung: Netplan YAML für die Schnittstelle (enp1s0) auf (dhcp4: true) neu konfiguriert.
+Verlängerung des Mietvertrags erzwingen: Ausgeführt (sudo dhclinet -v enp1s0), um eine gültige IP innerhalb des Hosts zu erhalten
+Subnetz (172.20.10.5).
+DNS-Härtung: 8.8.8.8 als primärer Nameserver eingefügt, um lokale Auflösungsfehler zu umgehen.
+
+4.Fazit
+Der Server hat erfolgreich einen externen Uplink eingerichtet. Alle Systempakete wurden aktualisiert,
+und die Cockpit-Weboberfläche
+ist jetzt voll funktionsfähig und verfügt über aktive Leistungskennzahlen.
