@@ -1,0 +1,20 @@
+Incident Overview:
+The primary server(server-1) experienced a total
+network isolation due to misconfigured static IP.
+This blockage prevented the installation of the (cockpit-pcp) metrics packag and halted all system repository updates.
+
+2.Diagnostic Findings
+Routing issue: The server lacked a vaild route to the external gateaway.
+DNS conflict: System-resolved conflicts prevented consistent name resolution,resulting in
+"Could not resolve" errors during upate attempts.
+
+3.Remediation Strategy
+Dynamic Addressing: Reconfigured the Netplan YAML to (dhcp4: true) for the (enp1s0) interface.
+Force Lease renewal: Executed (sudo dhclinet -v enp1s0) to obtain a vaild IP within the host's
+subnet (172.20.10.5).
+DNS Hardening: injected 8.8.8.8 as the primary nameserver to bypass local resolution faliures.
+
+4.Conclusion
+The server successfully established an external uplink.All system package were upgraded,
+and the Cockpit web interface
+is now fully operational with active performance metrics.
